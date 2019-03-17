@@ -22,8 +22,8 @@ class CommandManager:
                 print('Invalid arguments.')
             registration_number = args[0]
             color = args[1]
-            self.vehicle_manager.create(registration_number, color)
-            self.vehicle_parking_slot_manager.park(registration_number)
+            if self.vehicle_parking_slot_manager.park(registration_number):
+                self.vehicle_manager.create(registration_number, color)
         elif command == Command.LEAVE.name:
             if len(args) != Command.LEAVE.value[1]:
                 print('Invalid arguments.')
@@ -36,11 +36,17 @@ class CommandManager:
         elif command == Command.REGISTRATION_NUMBERS_FOR_CARS_WITH_COLOUR.name:
             if len(args) != Command.REGISTRATION_NUMBERS_FOR_CARS_WITH_COLOUR.value[1]:
                 print('Invalid arguments.')
-        elif command == Command.SLOT_NUMBERS_FOR_CARS_WITH_COLOUR:
+            color = args[0]
+            self.vehicle_manager.get_vehicles_by_color(color, printing=True)
+        elif command == Command.SLOT_NUMBERS_FOR_CARS_WITH_COLOUR.name:
             if len(args) != Command.SLOT_NUMBERS_FOR_CARS_WITH_COLOUR.value[1]:
                 print('Invalid arguments.')
-        elif command == Command.SLOT_NUMBER_FOR_REGISTRATION_NUMBER:
+            color = args[0]
+            self.vehicle_parking_slot_manager.get_slot_numbers_for_color(color)
+        elif command == Command.SLOT_NUMBER_FOR_REGISTRATION_NUMBER.name:
             if len(args) != Command.SLOT_NUMBER_FOR_REGISTRATION_NUMBER.value[1]:
                 print('Invalid arguments.')
+            registration_number = args[0]
+            self.vehicle_parking_slot_manager.get_by_registration_number(registration_number)
         else:
             print('Invalid command %s' % command)
