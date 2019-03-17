@@ -14,3 +14,7 @@ class VehicleManager:
             VehicleType.BIKE: Bike(registration_number, color)
         }.get(vehicle_type)
         return self.vehicle_dao.create(vehicle)
+
+    def get(self, registration_number):
+        return self.vehicle_dao.get(registration_number)
+

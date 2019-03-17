@@ -11,33 +11,36 @@ class CommandManager:
         self.vehicle_parking_slot_manager = VehicleParkingSlotManager()
 
     def manage(self, command, args):
-        command = command.upper()
+        command = command.strip().upper()
         if command == Command.CREATE_PARKING_LOT.name:
-            if len(args) != Command.CREATE_PARKING_LOT.value:
+            if len(args) != Command.CREATE_PARKING_LOT.value[1]:
                 print('Invalid arguments.')
-            number_of_slots = args[0]
+            number_of_slots = int(args[0])
             self.parking_slot_manager.create(number_of_slots)
         elif command == Command.PARK.name:
-            if len(args) != Command.PARK.value:
+            if len(args) != Command.PARK.value[1]:
                 print('Invalid arguments.')
             registration_number = args[0]
             color = args[1]
             self.vehicle_manager.create(registration_number, color)
-            self.parking_slot_manager.parking_slot_dao
+            self.vehicle_parking_slot_manager.park(registration_number)
         elif command == Command.LEAVE.name:
-            if len(args) != Command.LEAVE.value:
+            if len(args) != Command.LEAVE.value[1]:
                 print('Invalid arguments.')
+            slot_number = int(args[0])
+            self.vehicle_parking_slot_manager.leave(slot_number)
         elif command == Command.STATUS.name:
-            if len(args) != Command.STATUS.value:
+            if len(args) != Command.STATUS.value[1]:
                 print('Invalid arguments.')
+            self.vehicle_parking_slot_manager.get_status()
         elif command == Command.REGISTRATION_NUMBERS_FOR_CARS_WITH_COLOUR.name:
-            if len(args) != Command.REGISTRATION_NUMBERS_FOR_CARS_WITH_COLOUR.value:
+            if len(args) != Command.REGISTRATION_NUMBERS_FOR_CARS_WITH_COLOUR.value[1]:
                 print('Invalid arguments.')
         elif command == Command.SLOT_NUMBERS_FOR_CARS_WITH_COLOUR:
-            if len(args) != Command.SLOT_NUMBERS_FOR_CARS_WITH_COLOUR.value:
+            if len(args) != Command.SLOT_NUMBERS_FOR_CARS_WITH_COLOUR.value[1]:
                 print('Invalid arguments.')
         elif command == Command.SLOT_NUMBER_FOR_REGISTRATION_NUMBER:
-            if len(args) != Command.SLOT_NUMBER_FOR_REGISTRATION_NUMBER.value:
+            if len(args) != Command.SLOT_NUMBER_FOR_REGISTRATION_NUMBER.value[1]:
                 print('Invalid arguments.')
         else:
-            print('Invalid command.')
+            print('Invalid command %s' % command)
