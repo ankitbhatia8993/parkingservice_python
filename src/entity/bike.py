@@ -1,5 +1,5 @@
-from parking_lot.src.entity.vehicle import Vehicle
-from parking_lot.src.enum.vehicle_type import VehicleType
+from entity.vehicle import Vehicle
+from enums.vehicle_type import VehicleType
 
 
 class Bike(Vehicle):

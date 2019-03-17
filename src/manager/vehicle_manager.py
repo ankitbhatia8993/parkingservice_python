@@ -1,7 +1,7 @@
-from parking_lot.src.dao.inmemory import VehicleDao
-from parking_lot.src.entity.bike import Bike
-from parking_lot.src.entity.car import Car
-from parking_lot.src.enum.vehicle_type import VehicleType
+from dao.inmemory import VehicleDao
+from entity.bike import Bike
+from entity.car import Car
+from enums.vehicle_type import VehicleType
 
 
 class VehicleManager:

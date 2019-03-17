@@ -1,6 +1,6 @@
-from parking_lot.src.dao.inmemory import ParkingSlotDao
-from parking_lot.src.entity.parking_slot import ParkingSlot
-from parking_lot.src.enum.slot_size import SlotSize
+from dao.inmemory import ParkingSlotDao
+from entity.parking_slot import ParkingSlot
+from enums.slot_size import SlotSize
 
 
 class ParkingSlotManager:

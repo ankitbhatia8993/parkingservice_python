@@ -1,6 +1,6 @@
 from enum import Enum
 
-from parking_lot.src.enum.slot_size import SlotSize
+from enums.slot_size import SlotSize
 
 
 class VehicleType(Enum):

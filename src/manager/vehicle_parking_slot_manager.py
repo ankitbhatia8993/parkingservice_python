@@ -1,5 +1,5 @@
-from parking_lot.src.dao.inmemory import VehicleParkingSlotDao
-from parking_lot.src.entity.vehicle_parking_slot import VehicleParkingSlot
+from dao.inmemory import VehicleParkingSlotDao
+from entity.vehicle_parking_slot import VehicleParkingSlot
 
 
 class VehicleParkingSlotManager:
