@@ -3,4 +3,5 @@
 .pytest/*
 .pytest_cache/*
 src/test/dao/.pytest_cache/*
+src/test/manager/.pytest_cache/*
 *.pdf

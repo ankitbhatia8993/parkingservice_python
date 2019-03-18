@@ -2,6 +2,7 @@ from enums.command import Command
 from manager.parking_slot_manager import ParkingSlotManager
 from manager.vehicle_manager import VehicleManager
 from manager.vehicle_parking_slot_manager import VehicleParkingSlotManager
+from messages.messages import ErrorMessages, SuccessMessages
 
 
 class CommandManager:
@@ -17,6 +18,7 @@ class CommandManager:
                 print('Invalid arguments.')
             number_of_slots = int(args[0])
             self.parking_slot_manager.create(number_of_slots)
+            print(SuccessMessages.PARKING_LOT_CREATION_SUCCESS % number_of_slots)
         elif command == Command.PARK.name:
             if len(args) != Command.PARK.value[1]:
                 print('Invalid arguments.')
@@ -49,4 +51,4 @@ class CommandManager:
             registration_number = args[0]
             self.vehicle_parking_slot_manager.get_by_registration_number(registration_number)
         else:
-            print('Invalid command %s' % command)
+            raise Exception(ErrorMessages.INVALID_COMMAND)
