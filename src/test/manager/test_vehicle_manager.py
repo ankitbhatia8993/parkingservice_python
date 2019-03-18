@@ -30,3 +30,7 @@ class VehicleManagerTest(unittest.TestCase):
         vehicles = self.vehicle_manager.get_vehicles_by_color(self.color)
         expected_vehicles[0].created_on = vehicles[0].created_on
         self.assertEqual(vehicles, expected_vehicles)
+
+
+if __name__ == '__main__':
+    unittest.main()

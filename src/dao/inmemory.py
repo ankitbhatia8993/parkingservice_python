@@ -1,4 +1,3 @@
-import json
 from _datetime import datetime
 from collections import defaultdict
 
@@ -24,7 +23,7 @@ class ParkingSlotDao:
     def bulk_create(self, parking_slots):
         existing_size = len(parking_slot_data['id_to_object'])
         if existing_size > 0:
-            raise Exception('Parking lot is already created with size %d' % existing_size)
+            return None
         created_parking_slots = []
         for parking_slot in parking_slots:
             _id = parking_slot_data['id_counter']

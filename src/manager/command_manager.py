@@ -18,7 +18,6 @@ class CommandManager:
                 print('Invalid arguments.')
             number_of_slots = int(args[0])
             self.parking_slot_manager.create(number_of_slots)
-            print(SuccessMessages.PARKING_LOT_CREATION_SUCCESS % number_of_slots)
         elif command == Command.PARK.name:
             if len(args) != Command.PARK.value[1]:
                 print('Invalid arguments.')

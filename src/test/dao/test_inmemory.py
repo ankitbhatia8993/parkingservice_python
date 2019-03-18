@@ -1,10 +1,10 @@
 import unittest
 
-from src.dao.inmemory import ParkingSlotDao, VehicleDao, VehicleParkingSlotDao
-from src.entity.car import Car
-from src.entity.parking_slot import ParkingSlot
-from src.entity.vehicle_parking_slot import VehicleParkingSlot
-from src.enums.slot_size import SlotSize
+from dao.inmemory import ParkingSlotDao, VehicleDao, VehicleParkingSlotDao
+from entity.car import Car
+from entity.parking_slot import ParkingSlot
+from entity.vehicle_parking_slot import VehicleParkingSlot
+from enums.slot_size import SlotSize
 
 
 class ParkingSlotDaoTest(unittest.TestCase):
@@ -20,8 +20,10 @@ class ParkingSlotDaoTest(unittest.TestCase):
 
     def test_bulk_create(self):
         expected_slots = self.get_slots()
-        created_slots = self.parking_slot_dao.bulk_create(expected_slots)
-        self.assertEqual(created_slots, expected_slots)
+        self.assertRaises(Exception, self.parking_slot_dao.bulk_create(expected_slots))
+        #     return
+        # created_slots = self.parking_slot_dao.bulk_create(expected_slots)
+        # self.assertEqual(created_slots, expected_slots)
 
     def test_update(self):
         expected_slot = ParkingSlot(SlotSize.MEDIUM.value, _id=2)
@@ -114,3 +116,7 @@ class VehicleParkingSlotDaoTest(unittest.TestCase):
         self.assertEqual(vehicle_parking_slot, expected_vehicle_parking_slot)
         expected_vehicle_parking_slot.enabled = True
         self.vehicle_parking_slot_dao.update(expected_vehicle_parking_slot)
+
+
+if __name__ == '__main__':
+    unittest.main()

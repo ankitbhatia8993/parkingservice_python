@@ -15,6 +15,8 @@ class ParkingSlotManager:
         for i in range(count):
             parking_slots.append(ParkingSlot(size))
         parking_slots = self.parking_slot_dao.bulk_create(parking_slots)
+        if not parking_slots:
+            return
         for parking_slot in parking_slots:
             self.cache.add_slot(parking_slot.id)
         print(SuccessMessages.PARKING_LOT_CREATION_SUCCESS % count)

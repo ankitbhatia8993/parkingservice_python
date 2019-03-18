@@ -19,8 +19,13 @@ class ParkingSlotManagerTest(unittest.TestCase):
     def test_create(self):
         expected_slots = self.get_slots()
         created_slots = self.parking_slot_manager.create(self.slot_count)
-        self.assertEqual(created_slots, expected_slots)
+        if created_slots:
+            self.assertEqual(created_slots, expected_slots)
 
     def test_get_all(self):
         parking_slots = self.parking_slot_manager.get_all()
         self.assertEqual(parking_slots, self.get_slots())
+
+
+if __name__ == '__main__':
+    unittest.main()
