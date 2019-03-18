@@ -2,7 +2,7 @@ class SuccessMessages:
     PARKING_LOT_CREATION_SUCCESS = 'Created a parking lot with %d slots'
     PARKING_VEHICLE_SUCCESS = 'Allocated slot number: %d'
     LEAVE_PARKING_SLOT_SUCCESS = 'Slot number %d is free'
-    STATUS_HEADER = 'Slot No.\tRegistration No\tColour'
+    STATUS_HEADER = 'Slot No.    Registration No    Colour'
     NO_VEHICLE_PARKED_AT_PARKING_SLOT = 'No vehicle parked at the parking slot'
 
 

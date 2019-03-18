@@ -14,6 +14,9 @@ class VehicleParkingSlotManager:
         self.cache = Cache.get_instance()
 
     def park(self, registration_number):
+        parked_vehicle = self.get_by_registration_number(registration_number, printing=False)
+        if parked_vehicle and parked_vehicle.enabled:
+            return None
         parking_slot_id = self.cache.get_nearest_slot()
         if parking_slot_id:
             vehicle_parking_slot = VehicleParkingSlot(parking_slot_id, registration_number)
@@ -36,7 +39,7 @@ class VehicleParkingSlotManager:
         for vehicle_parking_slot in vehicle_parking_slots:
             registration_number = vehicle_parking_slot.vehicle_registration_number
             vehicle = self.vehicle_manager.get(registration_number)
-            print('%d\t%s\t%s' % (vehicle_parking_slot.parking_slot_id, registration_number, vehicle.color))
+            print('%d           %s      %s' % (vehicle_parking_slot.parking_slot_id, registration_number, vehicle.color))
 
     def get_slot_numbers_for_color(self, color):
         vehicles = self.vehicle_manager.get_vehicles_by_color(color)
@@ -48,11 +51,11 @@ class VehicleParkingSlotManager:
         print(', '.join(map(lambda s: str(s), slot_numbers)))
         return slot_numbers
 
-    def get_by_registration_number(self, registration_number):
+    def get_by_registration_number(self, registration_number, printing=True):
         vehicle_parking_slot = self.vehicle_parking_slot_dao.get_by_vehicle(registration_number)
-        if vehicle_parking_slot:
+        if printing and vehicle_parking_slot:
             print(vehicle_parking_slot.parking_slot_id)
-        else:
+        elif printing:
             print(ErrorMessages.NOT_FOUND)
         return vehicle_parking_slot
 
