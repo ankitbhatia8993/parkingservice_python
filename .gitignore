@@ -1,1 +1,6 @@
 *.pyc
+*.coverage
+.pytest/*
+.pytest_cache/*
+src/test/dao/.pytest_cache/*
+*.pdf

@@ -1,3 +1,4 @@
+import json
 from _datetime import datetime
 from collections import defaultdict
 
@@ -38,6 +39,9 @@ class ParkingSlotDao:
         parking_slot_data['id_to_object'][_id] = parking_slot
         return parking_slot
 
+    def get_all(self):
+        return list(parking_slot_data['id_to_object'].values())
+
 
 class VehicleDao:
     """
@@ -49,14 +53,18 @@ class VehicleDao:
             return vehicle_data['id_to_object'][registration_number]
         vehicle.created_on = datetime.now()
         vehicle_data['id_to_object'][registration_number] = vehicle
+        return vehicle
 
     def get(self, registration_number):
         return vehicle_data['id_to_object'].get(registration_number)
 
     def update(self, vehicle):
-        _id = vehicle.id
-        vehicle_data['id_to_object'][_id] = vehicle
-        return vehicle
+        _id = vehicle.registration_number
+        old_object = vehicle_data['id_to_object'][_id]
+        new_object = old_object
+        new_object.color = vehicle.color
+        vehicle_data['id_to_object'][_id] = new_object
+        return new_object
 
     def get_vehicles_by_color(self, color):
         entries = vehicle_data['id_to_object'].values()
@@ -84,12 +92,16 @@ class VehicleParkingSlotDao:
         vehicle_parking_slot_data['id_counter'] += 1
         return vehicle_parking_slot
 
-    def get_all(self):
+    def get_occupied_slots(self):
         return list(filter(lambda entry: entry.enabled, vehicle_parking_slot_data['id_to_object'].values()))
 
     def update(self, vehicle_parking_slot):
         _id = vehicle_parking_slot.id
-        vehicle_parking_slot_data['id_to_object'][_id] = vehicle_parking_slot
+        old_object = vehicle_parking_slot_data['id_to_object'][_id]
+        new_object = old_object
+        new_object.enabled = vehicle_parking_slot.enabled
+        vehicle_parking_slot_data['id_to_object'][_id] = new_object
+        return new_object
 
     def get_by_parking_slot(self, parking_slot_id):
         vehicle_parking_slot_entries = vehicle_parking_slot_data['id_to_object'].values()
@@ -111,4 +123,5 @@ class VehicleParkingSlotDao:
         vehicle_parking_slot = self.get_by_parking_slot(parking_slot_id)
         _id = vehicle_parking_slot.id
         vehicle_parking_slot_data['id_to_object'][_id].enabled = False
+        return vehicle_parking_slot_data['id_to_object'][_id]
 

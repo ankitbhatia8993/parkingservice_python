@@ -1,5 +1,6 @@
 from sys import argv
 from application import Executor
+from messages.messages import ErrorMessages
 
 
 if __name__ == '__main__':
@@ -12,7 +13,7 @@ if __name__ == '__main__':
     elif len(arguments) == 1:
         executor.execute()
     else:
-        print('Invalid command.')
+        print(ErrorMessages.INVALID_COMMAND_OR_ARGUMENTS)
 
 
 

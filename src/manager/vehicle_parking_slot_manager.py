@@ -1,13 +1,16 @@
 from dao.cache import Cache
 from dao.inmemory import VehicleParkingSlotDao
 from entity.vehicle_parking_slot import VehicleParkingSlot
+from manager.parking_slot_manager import ParkingSlotManager
 from manager.vehicle_manager import VehicleManager
+from messages.messages import SuccessMessages, ErrorMessages
 
 
 class VehicleParkingSlotManager:
     def __init__(self):
         self.vehicle_parking_slot_dao = VehicleParkingSlotDao()
         self.vehicle_manager = VehicleManager()
+        self.parking_slot_manager = ParkingSlotManager()
         self.cache = Cache.get_instance()
 
     def park(self, registration_number):
@@ -25,11 +28,11 @@ class VehicleParkingSlotManager:
     def leave(self, slot_number):
         self.vehicle_parking_slot_dao.disable_vehicle_parking(slot_number)
         self.cache.add_slot(slot_number)
-        print('Slot number %d is free' % slot_number)
+        print(SuccessMessages.LEAVE_PARKING_SLOT_SUCCESS % slot_number)
 
     def get_status(self):
-        vehicle_parking_slots = self.vehicle_parking_slot_dao.get_all()
-        print('Slot No.\tRegistration No\tColour')
+        vehicle_parking_slots = self.vehicle_parking_slot_dao.get_occupied_slots()
+        print(SuccessMessages.STATUS_HEADER)
         for vehicle_parking_slot in vehicle_parking_slots:
             registration_number = vehicle_parking_slot.vehicle_registration_number
             vehicle = self.vehicle_manager.get(registration_number)
@@ -50,7 +53,17 @@ class VehicleParkingSlotManager:
         if vehicle_parking_slot:
             print(vehicle_parking_slot.parking_slot_id)
         else:
-            print('Not found')
+            print(ErrorMessages.NOT_FOUND)
         return vehicle_parking_slot
+
+    def get_available_slots(self):
+        vehicle_parking_slots = self.vehicle_parking_slot_dao.get_occupied_slots()
+        parking_slots = self.parking_slot_manager.get_all()
+        available_slots = []
+        for parking_slot in parking_slots:
+            intersection = list(filter(lambda entry: entry.parking_slot_id == parking_slot.id, vehicle_parking_slots))
+            if not intersection:
+                available_slots.append(parking_slot.id)
+        return available_slots
 
 
